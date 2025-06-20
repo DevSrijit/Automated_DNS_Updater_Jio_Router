@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   dns-updater:
@@ -20,13 +20,19 @@ services:
       resources:
         limits:
           memory: 512M
-          cpus: '1.0'
+          cpus: "1.0"
         reservations:
           memory: 256M
-          cpus: '0.5'
+          cpus: "0.5"
     # Health check
     healthcheck:
-      test: ["CMD", "python", "-c", "import os; exit(0 if os.path.exists('/tmp/dns_updater_healthy') else 1)"]
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import os; exit(0 if os.path.exists('/tmp/dns_updater_healthy') else 1)",
+        ]
       interval: 30m
       timeout: 10s
       retries: 3

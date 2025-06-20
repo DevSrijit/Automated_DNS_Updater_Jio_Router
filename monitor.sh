@@ -36,12 +36,12 @@ else
     echo "   ./start.sh"
     echo ""
     echo "📋 To check what went wrong:"
-    echo "   docker-compose logs dns-updater"
+    echo "   docker compose logs dns-updater"
 fi
 
 echo ""
 echo "🛠️  Management Commands:"
 echo "   Status:    ./monitor.sh"
-echo "   Logs:      docker-compose logs -f dns-updater"
-echo "   Restart:   docker-compose restart"
-echo "   Stop:      docker-compose down"
+echo "   Logs:      docker compose logs -f dns-updater"
+echo "   Restart:   docker compose restart"
+echo "   Stop:      docker compose down"

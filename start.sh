@@ -29,15 +29,15 @@ if ! command -v docker &> /dev/null; then
 fi
 
 # Check if Docker Compose is available
-if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/null; then
+if ! command -v docker compose &> /dev/null && ! docker compose version &> /dev/null; then
     echo "❌ Docker Compose is not available. Please install Docker Compose."
     exit 1
 fi
 
-# Function to use docker-compose or docker compose
+# Function to use docker compose or docker compose
 run_compose() {
-    if command -v docker-compose &> /dev/null; then
-        docker-compose "$@"
+    if command -v docker compose &> /dev/null; then
+        docker compose "$@"
     else
         docker compose "$@"
     fi
@@ -53,10 +53,10 @@ echo ""
 echo "✅ DNS Updater is now running!"
 echo ""
 echo "📊 Useful commands:"
-echo "   View logs:     $(if command -v docker-compose &> /dev/null; then echo 'docker-compose logs -f'; else echo 'docker compose logs -f'; fi)"
-echo "   Stop service:  $(if command -v docker-compose &> /dev/null; then echo 'docker-compose down'; else echo 'docker compose down'; fi)"
-echo "   Restart:       $(if command -v docker-compose &> /dev/null; then echo 'docker-compose restart'; else echo 'docker compose restart'; fi)"
-echo "   Status:        $(if command -v docker-compose &> /dev/null; then echo 'docker-compose ps'; else echo 'docker compose ps'; fi)"
+echo "   View logs:     $(if command -v docker compose &> /dev/null; then echo 'docker compose logs -f'; else echo 'docker compose logs -f'; fi)"
+echo "   Stop service:  $(if command -v docker compose &> /dev/null; then echo 'docker compose down'; else echo 'docker compose down'; fi)"
+echo "   Restart:       $(if command -v docker compose &> /dev/null; then echo 'docker compose restart'; else echo 'docker compose restart'; fi)"
+echo "   Status:        $(if command -v docker compose &> /dev/null; then echo 'docker compose ps'; else echo 'docker compose ps'; fi)"
 echo ""
 echo "📋 Container Status:"
 run_compose ps
@@ -66,4 +66,4 @@ echo "📱 The service will automatically update your router's DNS settings"
 echo "   according to the schedule defined in your .env file."
 echo ""
 echo "🔍 To view real-time logs:"
-echo "   $(if command -v docker-compose &> /dev/null; then echo 'docker-compose logs -f dns-updater'; else echo 'docker compose logs -f dns-updater'; fi)"
+echo "   $(if command -v docker compose &> /dev/null; then echo 'docker compose logs -f dns-updater'; else echo 'docker compose logs -f dns-updater'; fi)"

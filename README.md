@@ -14,9 +14,10 @@ A containerized Selenium automation script for updating JIO Fiber router DNS set
 
 ## 🔧 Prerequisites
 
-### On Raspberry Pi Zero 2W:
+### On Raspberry Pi Zero 2W
 
 1. **Install Docker**:
+
    ```bash
    curl -fsSL https://get.docker.com -o get-docker.sh
    sudo sh get-docker.sh
@@ -24,11 +25,13 @@ A containerized Selenium automation script for updating JIO Fiber router DNS set
    ```
 
 2. **Install Docker Compose** (if not included):
+
    ```bash
    sudo pip3 install docker-compose
    ```
 
 3. **Reboot** to apply Docker group changes:
+
    ```bash
    sudo reboot
    ```
@@ -38,12 +41,14 @@ A containerized Selenium automation script for updating JIO Fiber router DNS set
 1. **Clone or download this repository** to your Raspberry Pi
 
 2. **Configure your settings**:
+
    ```bash
    cp .env.example .env
    nano .env  # Edit with your router credentials and DNS preferences
    ```
 
 3. **Run the setup script**:
+
    ```bash
    ./start.sh
    ```
@@ -72,7 +77,7 @@ ipv6_dns_server2=2606:4700:4700::1001
 update_interval_time=28800
 ```
 
-### Popular DNS Servers:
+### Popular DNS Servers
 
 | Provider | IPv4 Primary | IPv4 Secondary | IPv6 Primary | IPv6 Secondary |
 |----------|-------------|----------------|-------------|----------------|
@@ -105,18 +110,22 @@ docker stats jio-dns-updater
 ## 🔍 Monitoring
 
 ### Log Files
+
 - Container logs: `docker-compose logs dns-updater`
 - Persistent logs: `./logs/dns_updater.log` (if logs directory exists)
 
 ### Health Checks
+
 The container includes built-in health monitoring:
+
 ```bash
 docker inspect --format='{{.State.Health.Status}}' jio-dns-updater
 ```
 
 ## 🏗️ Architecture
 
-### Container Specifications:
+### Container Specifications
+
 - **Base Image**: Python 3.11 slim (ARM compatible)
 - **Browser**: Chromium (optimized for ARM)
 - **Memory Limit**: 512MB (suitable for Pi Zero 2W)
@@ -124,7 +133,8 @@ docker inspect --format='{{.State.Health.Status}}' jio-dns-updater
 - **Network**: Isolated bridge network
 - **Security**: Non-root user execution
 
-### Optimization for Raspberry Pi Zero 2W:
+### Optimization for Raspberry Pi Zero 2W
+
 - Minimal resource usage
 - Chromium browser optimizations
 - Headless operation
@@ -134,6 +144,7 @@ docker inspect --format='{{.State.Health.Status}}' jio-dns-updater
 ## 🛠️ Troubleshooting
 
 ### Container Won't Start
+
 ```bash
 # Check container status
 docker-compose ps
@@ -147,6 +158,7 @@ df -h
 ```
 
 ### Memory Issues on Pi Zero 2W
+
 ```bash
 # Reduce update frequency in .env
 update_interval_time=43200  # 12 hours instead of 8
@@ -156,6 +168,7 @@ docker stats --no-stream
 ```
 
 ### DNS Update Failures
+
 ```bash
 # Check if router is accessible
 ping 192.168.29.1
@@ -168,6 +181,7 @@ docker-compose run --rm dns-updater python main.py
 ```
 
 ### Performance Optimization
+
 ```bash
 # Clean up unused Docker resources
 docker system prune -f
@@ -186,7 +200,8 @@ vcgencmd measure_temp
 
 ## 📈 Performance Notes
 
-### Raspberry Pi Zero 2W Specifications:
+### Raspberry Pi Zero 2W Specifications
+
 - **CPU**: Quad-core ARM Cortex-A53 @ 1GHz
 - **RAM**: 512MB
 - **Recommended Settings**:
@@ -194,7 +209,8 @@ vcgencmd measure_temp
   - Monitor temperature regularly
   - Ensure adequate power supply (2.5A recommended)
 
-### Resource Usage:
+### Resource Usage
+
 - **Memory**: ~200-300MB during operation
 - **CPU**: Peaks during browser operations, idle otherwise
 - **Storage**: ~1GB for container and dependencies
@@ -210,5 +226,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## ⚠️ Disclaimer
 
 This tool is for educational and personal use. Use at your own risk. Always ensure you have proper authorization to modify router settings.
-
-
