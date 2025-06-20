@@ -34,7 +34,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Chromium (better ARM support than Chrome on Raspberry Pi)
-RUN apt-get update && apt-get install -y chromium-browser && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y chromium && rm -rf /var/lib/apt/lists/*
 
 # Create app directory
 WORKDIR /app
