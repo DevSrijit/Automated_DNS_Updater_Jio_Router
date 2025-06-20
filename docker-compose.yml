@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  dns-updater:
+    build: .
+    container_name: jio-dns-updater
+    restart: unless-stopped
+    environment:
+      # You can override these in your .env file
+      - DISPLAY=:99
+    volumes:
+      # Mount .env file if it exists
+      - ./.env:/app/.env:ro
+      # Optional: Mount logs directory
+      - ./logs:/app/logs
+    networks:
+      - dns-updater-network
+    # Resource limits for Raspberry Pi Zero 2W
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.5'
+    # Health check
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os; exit(0 if os.path.exists('/tmp/dns_updater_healthy') else 1)"]
+      interval: 30m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+networks:
+  dns-updater-network:
+    driver: bridge
